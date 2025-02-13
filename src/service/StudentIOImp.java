@@ -20,8 +20,8 @@ public class StudentIOImp implements StudentIO{
         studentManager.setStudentTable(studentTable);
     }
 
-    @Override
-    public void updateStudentTable(StudentDto studentDto) {
-        studentManager.getStudentTable().put(studentDto.getStudentNumber(), studentDto);
-    }
+//    @Override
+//    public void updateStudentTable(StudentDto studentDto) {
+//        studentManager.getStudentTable().put(studentDto.getStudentNumber(), studentDto);
+//    }
 }
