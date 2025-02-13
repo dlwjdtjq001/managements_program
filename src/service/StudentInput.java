@@ -7,5 +7,5 @@ public interface StudentInput {
     int calcTotal(StudentDto studentDto);
     double calcAverage(StudentDto studentDto);
     String calcGrade(double average);
-
+    void putStudentTable(StudentDto studentDto);
 }
