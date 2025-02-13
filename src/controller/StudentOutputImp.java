@@ -1,7 +1,9 @@
 package controller;
 
+import dto.StudentDto;
 import service.SearchStudent;
 import service.SortedStudent;
+import service.StudentIO;
 import service.StudentInput;
 
 public class StudentOutputImp implements StudentOutput {
@@ -15,8 +17,4 @@ public class StudentOutputImp implements StudentOutput {
         this.studentInput = studentInput;
 
     }
-
-
-
-
 }

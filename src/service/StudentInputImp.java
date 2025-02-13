@@ -20,6 +20,7 @@ public class StudentInputImp implements StudentInput {
     }
 
     //학번(studentNumberCounter 생성)
+    @Override
     public String initStudentNumberCounter() {
         Map<String, StudentDto> studentDtoMap = studentIO.getStudentTable();
         if(studentNumberCounter == 0) {
@@ -29,31 +30,34 @@ public class StudentInputImp implements StudentInput {
         return String.valueOf(++studentNumberCounter);
     }
 
-    //중복정보 검사 (학생이름 + 국어 + 영어 + 수학 + 과학)
-    public boolean isDuplicateStudent (StudentDto studentDto) {
-        Map<String, StudentDto> studentDtoMap = StudentManager.getInstance().getStudentTable();
-        for (StudentDto check : studentDtoMap.values()) {
-            if (check.getName().equals(studentDto.getName()) &&
-                check.getKorean() == studentDto.getKorean() &&
-                check.getEnglish() == studentDto.getEnglish() &&
-                check.getMath() == studentDto.getMath() &&
-                check.getScience() == studentDto.getScience()) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    //중복정보 검사 (학생이름 + 국어 + 영어 + 수학 + 과학)
+//    public boolean isDuplicateStudent (StudentDto studentDto) {
+//        Map<String, StudentDto> studentDtoMap = StudentManager.getInstance().getStudentTable();
+//        for (StudentDto check : studentDtoMap.values()) {
+//            if (check.getName().equals(studentDto.getName()) &&
+//                check.getKorean() == studentDto.getKorean() &&
+//                check.getEnglish() == studentDto.getEnglish() &&
+//                check.getMath() == studentDto.getMath() &&
+//                check.getScience() == studentDto.getScience()) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
+    @Override
     //Total 계산 (korean + english + math + science)
     public int calcTotal(StudentDto studentDto) {
         return studentDto.getKorean() + studentDto.getEnglish() + studentDto.getMath() + studentDto.getScience();
     }
 
+    @Override
     //Average 계산
     public double calcAverage(StudentDto studentDto) {
         return calcTotal(studentDto) / 4.0;
     }
 
+    @Override
     //Grade 계산
     public String calcGrade(double average) {
         switch ((int) (average / 10)) {
