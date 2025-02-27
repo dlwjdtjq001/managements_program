@@ -2,10 +2,15 @@ package service;
 
 import dto.StudentDto;
 
+
+/**
+ * 학생정보를 테이블에 입력하기 위한 인터페이스
+ */
 public interface StudentInput {
-    String initStudentNumberCounter();
-    int calcTotal(StudentDto studentDto);
-    double calcAverage(StudentDto studentDto);
-    String calcGrade(double average);
+    /**
+     * 학생정보를 테이블에 입력하는 메서드
+     * @param studentDto 학생정보 DTO
+     */
     void putStudentTable(StudentDto studentDto);
 }
+

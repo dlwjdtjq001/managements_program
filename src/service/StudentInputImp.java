@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * 학생정보를 테이블에 입력하기 위한 클래스
+ */
 public class StudentInputImp implements StudentInput {
     //studentNumber,name,korean,english,math,science,total,average,grade
 
@@ -19,34 +22,31 @@ public class StudentInputImp implements StudentInput {
         this.studentIO = studentIO;
     }
 
-    //학번(studentNumberCounter 생성)
-    @Override
-    public String initStudentNumberCounter() {
+
+    /**
+     * 학번을 생성하는 메서드
+     * 테이블에 저장된 가장 큰 학번을 찾아서 그 다음 학번을 생성
+     * @return 생성한 학번 반환
+     */
+    private String initStudentNumberCounter() {
         Map<String, StudentDto> studentDtoMap = studentIO.getStudentTable();
         if(studentNumberCounter == 0) {
             List<String> list = studentDtoMap.keySet().stream().toList();
-            studentNumberCounter = list.stream().mapToInt(x -> Integer.parseInt(x)).max().orElse(20250000);
+            studentNumberCounter = list.stream()
+                    .mapToInt(x -> Integer.parseInt(x))
+                    .max()
+                    .orElse(20250000);
         }
         studentNumberCounter++;
         return String.valueOf(studentNumberCounter);
     }
 
-//    //중복정보 검사 (학생이름 + 국어 + 영어 + 수학 + 과학)
-//    public boolean isDuplicateStudent (StudentDto studentDto) {
-//        Map<String, StudentDto> studentDtoMap = studentIO.getStudentTable();
-//        for (StudentDto check : studentDtoMap.values()) {
-//            if (check.getName().equals(studentDto.getName()) &&
-//                check.getKorean() == studentDto.getKorean() &&
-//                check.getEnglish() == studentDto.getEnglish() &&
-//                check.getMath() == studentDto.getMath() &&
-//                check.getScience() == studentDto.getScience()) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-    //Builder
+    /**
+     * 완벽한 학생정보 DTO를 생성하기 위한 메서드
+     * @param studentDto 학생정보 DTO
+     * @param studentNumber 학번
+     * @return builder를 통한 완벽한 학생정보 객체 반환
+     */
     private StudentDto createPerfectDto(StudentDto studentDto, String studentNumber){
         return StudentDto.builder()
                 .studentNumber(studentNumber)
@@ -61,28 +61,41 @@ public class StudentInputImp implements StudentInput {
                 .build();
     }
 
-    // map(학번,DTO) put
+    /**
+     * 학생정보를 테이블에 입력하는 메서드
+     * @param studentDto 학생정보 DTO
+     */
     @Override
     public void putStudentTable(StudentDto studentDto) {
         String studentNumber = initStudentNumberCounter();
         studentIO.getStudentTable().put(studentNumber, createPerfectDto(studentDto, studentNumber));
+        studentIO.setStudentTable(studentIO.getStudentTable());
     }
 
-    //Total 계산 (korean + english + math + science)
-    @Override
-    public int calcTotal(StudentDto studentDto) {
+    /**
+     * 총점을 계산하는 메서드
+     * @param studentDto 학생정보 DTO
+     * @return 계산한 총점을 반환
+     */
+    private int calcTotal(StudentDto studentDto) {
         return studentDto.getKorean() + studentDto.getEnglish() + studentDto.getMath() + studentDto.getScience();
     }
 
-    //Average 계산
-    @Override
-    public double calcAverage(StudentDto studentDto) {
+    /**
+     * 평균을 계산하는 메서드
+     * @param studentDto 학생정보 DTO
+     * @return 계산한 평균값을 반환
+     */
+    private double calcAverage(StudentDto studentDto) {
         return calcTotal(studentDto) / 4.0;
     }
 
-    //Grade 계산
-    @Override
-    public String calcGrade(double average) {
+    /**
+     * 평균점수를 바탕으로 학점을 정하는 메서드
+     * @param average 평균 점수
+     * @return 측정한 학점을 반환
+     */
+    private String calcGrade(double average) {
         switch ((int) (average / 10)) {
             case 10, 9: return "A";
             case 8: return "B";
@@ -92,3 +105,4 @@ public class StudentInputImp implements StudentInput {
         }
     }
 }
+
