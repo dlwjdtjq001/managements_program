@@ -11,4 +11,5 @@ public class EmployeeOutputImp implements EmployeeOutput{
         this.employeeInput = employeeInput;
         this.searchEmployee = searchEmployee;
     }
+
 }
