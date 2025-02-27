@@ -1,4 +1,4 @@
 package employee.repository;
 
-public class EmployeeDBIOImp {
+public class EmployeeDBIOImp implements EmployeeDBIO {
 }

@@ -1,4 +1,11 @@
 package employee.service;
 
-public class SearchEmployeeImp {
+import employee.repository.EmployeeDBIO;
+
+public class SearchEmployeeImp implements SearchEmployee {
+    private EmployeeDBIO employeeDBIO;
+
+    public SearchEmployeeImp(EmployeeDBIO employeeDBIO) {
+        this.employeeDBIO = employeeDBIO;
+    }
 }
