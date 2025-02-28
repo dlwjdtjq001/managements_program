@@ -28,3 +28,7 @@ bin/
 ### Mac OS ###
 .DS_Store
 echo ".idea/compiler.xml" >> .gitignore
+
+
+### DB address ###
+/src/employee/config/dbinfo.properties
